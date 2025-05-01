@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "998067001299",
+    "project_id": "lenoy-lifesync",
+    "storage_bucket": "lenoy-lifesync.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:998067001299:android:845aabeced7912f4d7c126",
+        "android_client_info": {
+          "package_name": "com.example.lifesync"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRO7lYxuynbmHKi5kg31DTZSUQImnunLw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
