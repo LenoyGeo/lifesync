@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart'; // For date formatting
 import 'login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -18,11 +19,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _fullNameController = TextEditingController();
-  final TextEditingController _ageController = TextEditingController();
+  final TextEditingController _dobController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
 
-  String _selectedGender = 'Male';// default value
+  DateTime? _selectedDob;
+  String _selectedGender = 'Male'; // default value
 
   Future<void> _register() async {
     if (_formKey.currentState!.validate()) {
@@ -64,7 +66,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           'email': _emailController.text.trim(),
           'username': username,
           'fullName': _fullNameController.text.trim(),
-          'age': int.parse(_ageController.text.trim()),
+          'dob': Timestamp.fromDate(_selectedDob!),
           'gender': _selectedGender,
           'createdAt': FieldValue.serverTimestamp(),
         });
@@ -121,13 +123,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
-                  controller: _ageController,
-                  decoration: const InputDecoration(labelText: "Age"),
-                  keyboardType: TextInputType.number,
+                  controller: _dobController,
+                  readOnly: true,
+                  decoration: const InputDecoration(labelText: "Date of Birth (DD/MM/YYYY)"),
+                  onTap: () async {
+                    FocusScope.of(context).unfocus();
+                    DateTime? picked = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime(2000),
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime.now(),
+                    );
+                    if (picked != null) {
+                      setState(() {
+                        _selectedDob = picked;
+                        _dobController.text = DateFormat('dd/MM/yyyy').format(picked);
+                      });
+                    }
+                  },
                   validator: (value) {
-                    if (value == null || value.isEmpty) return "Please enter your age";
-                    final age = int.tryParse(value);
-                    if (age == null || age < 1 || age > 120) return "Enter a valid age";
+                    if (_selectedDob == null) return "Please select your date of birth";
                     return null;
                   },
                 ),

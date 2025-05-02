@@ -6,6 +6,7 @@ import 'screens/splash_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/register_screen.dart';
 import 'screens/home_screen.dart';
+import 'screens/editable_profile_screen.dart';
 import 'firebase_options.dart'; // <-- Add this import
 
 void main() async {
@@ -31,15 +32,22 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
         useMaterial3: true,
-        ),
+      ),
       debugShowCheckedModeBanner: false,
-      initialRoute:
-          '/splash', // Start with Splash
+      initialRoute: '/splash', // Start with Splash
       routes: {
         '/splash': (context) => const SplashScreen(),
         '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
         '/home': (context) => const HomeScreen(),
+        '/profile': (context) => EditableProfileScreen(
+          onProfileUpdated: () {
+            // Callback that gets executed after profile is updated
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Profile updated!')),
+            );
+          },
+        ),
       },
     );
   }

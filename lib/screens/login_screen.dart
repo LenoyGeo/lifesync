@@ -1,5 +1,5 @@
 // test credentials:
-//   Email: abc@123.com, 123@abc.in(same password), 123@123.com(same password), 123@abc.com (sp), 123@123.in(sp)
+//   Email: abc@123.com, 123@abc.in, 123@123.com, 123@abc.com, 123@123.in
 //   Password: Abc@1234
 
 import 'package:firebase_auth/firebase_auth.dart';

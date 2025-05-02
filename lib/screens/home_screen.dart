@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'login_screen.dart';  // Import login screen for direct navigation
+import 'editable_profile_screen.dart';  // Import the editable profile screen
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -11,15 +12,14 @@ class HomeScreen extends StatelessWidget {
     final User? user = FirebaseAuth.instance.currentUser;
 
     // Define a default username to show
-    
-      // If user is not null, use displayName, else use email
-      String username = user?.displayName ?? user?.email ?? "User";
-    
+    // If user is not null, use displayName, else use email
+    String username = user?.displayName ?? user?.email ?? "User";
 
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home"),
         actions: [
+          // Logout IconButton
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () async {
@@ -29,6 +29,29 @@ class HomeScreen extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const LoginScreen()),
+              );
+            },
+          ),
+          // Profile Edit IconButton
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () {
+              // Navigate to the EditableProfileScreen when the icon is pressed
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditableProfileScreen(
+                    // Pass the onProfileUpdated callback
+                    onProfileUpdated: () {
+                      // Reload the username here (you can trigger any action after profile update)
+                      // Usually you would use a setState to update the HomeScreen's UI
+                      // But here just for simplicity, we show a message
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Profile updated!')),
+                      );
+                    },
+                  ),
+                ),
               );
             },
           ),
@@ -44,14 +67,6 @@ class HomeScreen extends StatelessWidget {
               'Welcome, $username!',
               style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            // if (user != null) 
-            //   Padding(
-            //     padding: const EdgeInsets.only(top: 10),
-            //     child: Text(
-            //       'Email: ${user.email}',
-            //       style: const TextStyle(fontSize: 18),
-            //     ),
-            //   ),
           ],
         ),
       ),
