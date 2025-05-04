@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
 
     // Define a default username to show
     // If user is not null, use displayName, else use email
-    String username = user?.displayName ?? user?.email ?? "User";
+    String displayName = user?.displayName ?? user?.email ?? "User";
 
     return Scaffold(
       appBar: AppBar(
@@ -64,7 +64,7 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              'Welcome, $username!',
+              'Welcome, $displayName!',
               style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
           ],
