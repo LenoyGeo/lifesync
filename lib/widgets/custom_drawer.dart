@@ -1,0 +1,68 @@
+import 'package:flutter/material.dart';
+
+class CustomDrawer extends StatelessWidget {
+  const CustomDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          Container(
+            color: Colors.deepPurple,
+            height: 80, // Adjusted height
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              'LifeSync',
+              style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.home),
+            title: const Text('Home'),
+            onTap: () => Navigator.pushReplacementNamed(context, '/home'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.check_box),
+            title: const Text('Task Manager'),
+            onTap: () => Navigator.pushReplacementNamed(context, '/tasks'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.track_changes),
+            title: const Text('Habit Tracker'),
+            onTap: () => Navigator.pushReplacementNamed(context, '/habits'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.mood),
+            title: const Text('Mood & Journal'),
+            onTap: () => Navigator.pushReplacementNamed(context, '/mood'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.flag),
+            title: const Text('Goal Tracker'),
+            onTap: () => Navigator.pushReplacementNamed(context, '/goals'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('Settings'),
+            onTap: () => Navigator.pushReplacementNamed(context, '/settings'),
+          ),
+          Spacer(),
+          Divider(),
+          ListTile(
+            leading: const Icon(Icons.edit),
+            title: const Text("Edit Profile"),
+            onTap: ()=> Navigator.pushReplacementNamed(context, '/profile'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text('Logout'),
+            onTap: () => Navigator.pushReplacementNamed(context, '/login'),
+          )
+        ],
+      ),
+    );
+  }
+}

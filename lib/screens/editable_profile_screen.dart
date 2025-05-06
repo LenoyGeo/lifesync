@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../widgets/custom_drawer.dart';
 
 class EditableProfileScreen extends StatefulWidget {
   final VoidCallback onProfileUpdated;
@@ -120,6 +121,7 @@ class _EditableProfileScreenState extends State<EditableProfileScreen> {
       appBar: AppBar(
         title: const Text('Edit Profile'),
       ),
+      drawer: const CustomDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(

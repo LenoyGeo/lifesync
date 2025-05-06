@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../widgets/custom_drawer.dart';
 
 class TaskManagerScreen extends StatefulWidget {
   final String userId;
@@ -150,6 +151,7 @@ class _TaskManagerScreenState extends State<TaskManagerScreen> {
           ),
         ],
       ),
+      drawer: const CustomDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
