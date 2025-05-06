@@ -17,7 +17,7 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String? _editingHabitId;
   bool _isUpdating = false;
-  DateTime _focusedDay = DateTime.now();
+  final DateTime _focusedDay = DateTime.now();
   Map<String, bool> showCalendarMap = {}; // Map to control visibility
 
   Future<void> _addOrUpdateHabit() async {

@@ -1,5 +1,5 @@
 // test credentials:
-//   Email: abc@123.com, 123@abc.in, 123@123.com, 123@abc.com, 123@123.in
+//   Email: abc@123.com, 123@abc.in, 123@123.com, 123@abc.com, 123@123.in, abc@abc.com
 //   Password: Abc@1234
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,7 +18,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  
+  bool _obscurePassword = true;
   bool _isLoading = false;
 
   Future<void> _login() async {
@@ -79,8 +80,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 16),
                     TextFormField(
                       controller: _passwordController,
-                      decoration: const InputDecoration(labelText: "Password"),
-                      obscureText: true,
+                      decoration: InputDecoration(
+                        labelText: "Password",
+                        suffixIcon: IconButton(
+                          icon: Icon(_obscurePassword ? Icons.visibility_off : Icons.visibility),
+                          onPressed: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          },
+                        ),
+                      ),
+                      obscureText: _obscurePassword,
                       validator: (value) =>
                           value!.isEmpty ? "Please enter your password" : null,
                     ),

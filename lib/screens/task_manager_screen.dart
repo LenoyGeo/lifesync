@@ -6,7 +6,7 @@ import '../widgets/custom_drawer.dart';
 class TaskManagerScreen extends StatefulWidget {
   final String userId;
 
-  const TaskManagerScreen({Key? key, required this.userId}) : super(key: key);
+  const TaskManagerScreen({super.key, required this.userId});
 
   @override
   _TaskManagerScreenState createState() => _TaskManagerScreenState();
@@ -241,10 +241,10 @@ class _TaskManagerScreenState extends State<TaskManagerScreen> {
                   return ListView(
                     children: [
                       Text('Incomplete Tasks', style: TextStyle(fontWeight: FontWeight.bold)),
-                      ...incompleteTasks.map((task) => _buildTaskTile(task)).toList(),
+                      ...incompleteTasks.map((task) => _buildTaskTile(task)),
                       Divider(),
                       Text('Completed Tasks', style: TextStyle(fontWeight: FontWeight.bold)),
-                      ...completedTasks.map((task) => _buildTaskTile(task)).toList(),
+                      ...completedTasks.map((task) => _buildTaskTile(task)),
                     ],
                   );
                 },
