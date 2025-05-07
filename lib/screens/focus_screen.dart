@@ -1,12 +1,10 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:flutter/material.dart';
 import '../widgets/custom_drawer.dart';
 
 class FocusScreen extends StatefulWidget {
-  const FocusScreen({Key? key}) : super(key: key);
-
   @override
-  State<FocusScreen> createState() => _FocusScreenState();
+  _FocusScreenState createState() => _FocusScreenState();
 }
 
 class _FocusScreenState extends State<FocusScreen> {
@@ -68,14 +66,14 @@ class _FocusScreenState extends State<FocusScreen> {
     });
   }
 
-  // Format seconds to HH:MM
+  // Format seconds to HH:MM:SS
   String _formatTime(int seconds) {
     int hours = seconds ~/ 3600;
     int minutes = (seconds % 3600) ~/ 60;
-    return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}';
+    int remainingSeconds = seconds % 60; // Calculate remaining seconds
+    return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}';
   }
 
-  // Set custom work duration
   // Set custom work duration
   void _setCustomWorkDuration() {
     int hours = int.tryParse(_hourController.text) ?? 0;
@@ -178,7 +176,7 @@ class _FocusScreenState extends State<FocusScreen> {
         centerTitle: true,
       ),
       drawer: const CustomDrawer(),
-      body: SingleChildScrollView( // Wrap the whole body in a SingleChildScrollView
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: Column(
           children: [
@@ -213,7 +211,7 @@ class _FocusScreenState extends State<FocusScreen> {
                   child: const Text("Set Work"),
                 ),
               ],
-            ), // ✅ Custom work duration input fields
+            ),
             const SizedBox(height: 20),
             const Text(
               "Set Break Time",
@@ -246,7 +244,7 @@ class _FocusScreenState extends State<FocusScreen> {
                   child: const Text("Set Break"),
                 ),
               ],
-            ), // ✅ Custom break duration input fields
+            ),
             const SizedBox(height: 20),
             const Text(
               "Preset Focus Sessions",
@@ -297,7 +295,7 @@ class _FocusScreenState extends State<FocusScreen> {
             ),
             const SizedBox(height: 30),
             Text(
-              _isWorkSession ? "Focus Session" : "Break Time", // ✅ Show current session type
+              _isWorkSession ? "Focus Session" : "Break Time",
               style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
@@ -305,34 +303,40 @@ class _FocusScreenState extends State<FocusScreen> {
               alignment: Alignment.center,
               children: [
                 SizedBox(
-                  width: 180,
-                  height: 180,
+                  width: 250,
+                  height: 250,
                   child: CircularProgressIndicator(
-                    value: progress, // ✅ Circular progress indicator
+                    value: progress,
                     strokeWidth: 10,
                     backgroundColor: Colors.grey[300],
-                    valueColor: AlwaysStoppedAnimation<Color>( 
-                        _isWorkSession ? Colors.green : Colors.blue),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      _isWorkSession ? Colors.green : Colors.blue,
+                    ),
                   ),
                 ),
+                // Circular progress bar around the timer
+                
+                // Timer text in the center
                 Text(
-                                    _formatTime(_remainingSeconds), // ✅ Display formatted remaining time
-                  style: const TextStyle(
-                    fontSize: 48,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
+                  _formatTime(_remainingSeconds),
+                  style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  onPressed: _isRunning ? _pauseTimer : _startTimer,
-                  child: Text(_isRunning ? "Pause" : "Start"),
-                ),
+                if (_isRunning)
+                  ElevatedButton(
+                    onPressed: _pauseTimer,
+                    child: const Text("Pause"),
+                  )
+                else
+                  ElevatedButton(
+                    onPressed: _startTimer,
+                    child: const Text("Start"),
+                  ),
                 const SizedBox(width: 20),
                 ElevatedButton(
                   onPressed: _resetTimer,
@@ -340,30 +344,13 @@ class _FocusScreenState extends State<FocusScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 40),
-            Text(
-              "Total Time Focused: $totalTimeSpent", // ✅ Display total time spent
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(height: 30),
-            const Text(
-              "Completed Sessions: ",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-            ),
-            Text(
-              '$_completedSessions',
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 30),
-            const Text(
-              "Focus Calendar:",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-            ),
-            // Calendar or Focus log can be added here in the future
             const SizedBox(height: 20),
-            // Example of displaying the total time spent for today (just for the sake of simplicity):
             Text(
-              'Time Spent Today: $totalTimeSpent',
+              'Total Time Spent: $totalTimeSpent',
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+            Text(
+              'Total Completed Sessions: $_completedSessions',
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
           ],
@@ -372,4 +359,3 @@ class _FocusScreenState extends State<FocusScreen> {
     );
   }
 }
-

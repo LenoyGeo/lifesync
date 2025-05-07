@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:lifesync/screens/focus_screen.dart';
 import 'firebase_options.dart';
 
 import 'screens/splash_screen.dart';
+import 'screens/focus_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/register_screen.dart';
 import 'screens/home_screen.dart';
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
           final user = FirebaseAuth.instance.currentUser;
           return TaskManagerScreen(userId: user?.uid ?? '');
         },
-        '/focus': (context) => const FocusScreen(),
+        '/focus': (context) => FocusScreen(),
         '/habits': (context) => const HabitTrackerScreen(),
         '/profile': (context) => EditableProfileScreen(
               onProfileUpdated: () {
