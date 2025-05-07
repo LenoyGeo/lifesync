@@ -40,9 +40,9 @@ class CustomDrawer extends StatelessWidget {
             onTap: () => Navigator.pushReplacementNamed(context, '/mood'),
           ),
           ListTile(
-            leading: const Icon(Icons.flag),
-            title: const Text('Goal Tracker'),
-            onTap: () => Navigator.pushReplacementNamed(context, '/goals'),
+            leading: const Icon(Icons.center_focus_strong),
+            title: const Text('Focus'),
+            onTap: () => Navigator.pushReplacementNamed(context, '/focus'),
           ),
           ListTile(
             leading: const Icon(Icons.settings),
