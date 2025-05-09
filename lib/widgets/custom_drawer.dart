@@ -41,8 +41,8 @@ class CustomDrawer extends StatelessWidget {
                     onTap: () => Navigator.pushReplacementNamed(context, '/habits'),
                   ),
                   ListTile(
-                    leading: const Icon(Icons.mood),
-                    title: const Text('Mood & Journal'),
+                    leading: const Icon(Icons.monitor_heart_outlined),
+                    title: const Text('Digital Wellbeing'),
                     onTap: () => Navigator.pushReplacementNamed(context, '/mood'),
                   ),
                   ListTile(

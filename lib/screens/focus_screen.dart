@@ -291,6 +291,54 @@ class _FocusScreenState extends State<FocusScreen> {
                 ),
               ],
             ),
+            const SizedBox(height: 20),
+            const Text(
+              "Preset Focus Sessions",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(height: 10),
+            Wrap(
+              spacing: 12,
+              runSpacing: 10,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _workDuration = 25 * 60;
+                      _breakDuration = 5 * 60;
+                      _remainingSeconds = _workDuration;
+                      _isWorkSession = true;
+                      _isRunning = false;
+                    });
+                  },
+                  child: const Text("Pomodoro"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _workDuration = 15 * 60;
+                      _breakDuration = 3 * 60;
+                      _remainingSeconds = _workDuration;
+                      _isWorkSession = true;
+                      _isRunning = false;
+                    });
+                  },
+                  child: const Text("Short Focus"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _workDuration = 50 * 60;
+                      _breakDuration = 10 * 60;
+                      _remainingSeconds = _workDuration;
+                      _isWorkSession = true;
+                      _isRunning = false;
+                    });
+                  },
+                  child: const Text("Deep Focus"),
+                ),
+              ],
+            ),
             const SizedBox(height: 30),
             Stack(
               alignment: Alignment.center,
